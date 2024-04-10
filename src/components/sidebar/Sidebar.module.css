@@ -1,0 +1,23 @@
+.wrapper {
+  margin-top: 20px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  gap: 10px;
+}
+
+#sideimg {
+  height: 500px;
+  width: 200px;
+  border-radius: 5px;
+}
+.sidebutton {
+  background-color: rgb(245, 202, 75);
+  color: black;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 200px;
+}

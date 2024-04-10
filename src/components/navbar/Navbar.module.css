@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3b3486;
+  padding-left: 20px;
+  padding-right: 20px;
+  position: sticky;
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  align-items: space-between;
+  gap: 15px;
+  cursor: pointer;
+  color: #f8e559;
+}
+
+.logo {
+  height: 50px;
+  width: 50px;
+  margin-top: 5px;
+}
+
+#imglogo {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+}
