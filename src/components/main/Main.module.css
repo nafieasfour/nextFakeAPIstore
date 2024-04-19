@@ -1,18 +1,29 @@
-.mainWrapper{
-    background-color: #332941;
-    flex: 7;
+.mainWrapper {
+  background-color: #332941;
+  flex: 7;
 }
-.products{
-    display: flex;
+.products {
+  display: flex;
 }
-.productList{
-    list-style: none;
+.productList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
-.productCart{
-    display: flex;
-    flex-direction: column;
+.productCart {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  background-color: #625704;
+  border-radius: 5px;
+  align-items: center;
+  padding: 5px;
 }
-.productImage{
-    width: 150px;
-    height: 150px;
+.productImage {
+  width: 150px;
+  height: 150px;
+}
+.imageAndPrice {
+  display: flex;
 }

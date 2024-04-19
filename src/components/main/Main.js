@@ -18,6 +18,13 @@ export const ProductList = () => {
       .catch(error => console.error('Error fetching products:', error));
   }, []);
 
+  const toggleTitle = (productId) => {
+    setProducts(prevProducts =>
+      prevProducts.map(product =>
+        product.id === productId ? { ...product, showFullTitle: !product.showFullTitle } : product
+      )
+    );
+  };
   return (
     <div>
       <h1>Products</h1>
@@ -25,7 +32,8 @@ export const ProductList = () => {
         <ul className={styles.productList}>
           {products.map(product => (
             <li key={product.id} className={styles.productCart}>
-              <strong>{product.title}</strong>
+               <strong>{product.showFullTitle ? product.title : product.title.split(' ').slice(0, 3).join(' ')}</strong>
+              {!product.showFullTitle && <button onClick={() => toggleTitle(product.id)}>See More</button>}
               <Image src={product.image} className={styles.productImage} width={500}
                 height={500} />
               ${product.price}
