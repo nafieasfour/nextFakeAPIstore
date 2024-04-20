@@ -18,13 +18,15 @@
     width: 50%;
     height: 80%;
     gap: 30px;
+    border-radius: 15px;
   }
   .logininput {
     width: 400px;
     height: 100px;
+    padding-left: 10px;
   }
   .loginbutton {
-    background-color: #f8e559;
+    background-color: #8d8020;
     width: 250px;
     height: 100px;
   }
