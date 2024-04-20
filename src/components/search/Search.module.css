@@ -1,0 +1,13 @@
+.searchWrapper{
+    padding-top: 30px;
+}
+.search {
+  padding-top: 2px;
+  margin-right: 20px;
+  height: 40px;
+  width: 250px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  padding-left: 4px;
+}

@@ -1,6 +1,6 @@
 .mainWrapper {
   background-color: #332941;
-  flex: 7;
+  display: flex;
 }
 .products {
   display: flex;
@@ -19,6 +19,7 @@
   border-radius: 5px;
   align-items: center;
   padding: 5px;
+  width: 250px;
 }
 .productImage {
   width: 150px;

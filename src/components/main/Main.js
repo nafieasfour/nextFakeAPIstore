@@ -2,21 +2,31 @@
 import React from 'react'
 import styles from "./Main.module.css"
 import Image from 'next/image'
-
-
-// components/ProductList.js
-
 import { useEffect, useState } from 'react';
+import Search from '../search/Search';
 
-export const ProductList = () => {
+// Fetching the API
+export const ProductList = ({ searchQuery }) => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then(response => response.json())
-      .then(data => setProducts(data))
+      .then(data => {
+        setProducts(data);
+        setFilteredProducts(data); // Initially set filtered products to all products
+      })
       .catch(error => console.error('Error fetching products:', error));
   }, []);
+
+  useEffect(() => {
+    // Filter products based on search query
+    const filtered = products.filter(product =>
+      product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  }, [searchQuery, products]);
 
   const toggleTitle = (productId) => {
     setProducts(prevProducts =>
@@ -25,17 +35,17 @@ export const ProductList = () => {
       )
     );
   };
+
   return (
     <div>
       <h1>Products</h1>
       <div className={styles.products}>
         <ul className={styles.productList}>
-          {products.map(product => (
+          {filteredProducts.map(product => (
             <li key={product.id} className={styles.productCart}>
-               <strong>{product.showFullTitle ? product.title : product.title.split(' ').slice(0, 3).join(' ')}</strong>
+              <strong>{product.showFullTitle ? product.title : product.title.split(' ').slice(0, 3).join(' ')}</strong>
               {!product.showFullTitle && <button onClick={() => toggleTitle(product.id)}>See More</button>}
-              <Image src={product.image} className={styles.productImage} width={500}
-                height={500} />
+              <Image src={product.image} className={styles.productImage} width={500} height={500} />
               ${product.price}
             </li>
           ))}
@@ -45,14 +55,19 @@ export const ProductList = () => {
   );
 };
 
-
+// Main  Function
 export default function Main() {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  }
   return (
     <div className={styles.mainWrapper}>
-      <p>Welcome To Our Store</p>
       <div className={styles.products}>
-        <ProductList />
+        <ProductList searchQuery={searchQuery} />
       </div>
+      <Search onChange={handleSearchInputChange} />
     </div>
   )
 }
