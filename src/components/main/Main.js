@@ -45,7 +45,7 @@ export const ProductList = ({ searchQuery }) => {
             <li key={product.id} className={styles.productCart}>
               <strong>{product.showFullTitle ? product.title : product.title.split(' ').slice(0, 3).join(' ')}</strong>
               {!product.showFullTitle && <button onClick={() => toggleTitle(product.id)}>See More</button>}
-              <Image src={product.image} className={styles.productImage} width={500} height={500} />
+              <Image src={product.image} className={styles.productImage} width={500} height={500} alt=''/>
               ${product.price}
             </li>
           ))}
