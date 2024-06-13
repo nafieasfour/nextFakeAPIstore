@@ -4,7 +4,6 @@ import React, { useState } from 'react'; // Import useState hook
 import { useRouter } from "next/navigation"; // Import useRouter hook
 
 export default function LoginPage() {
-  // Declare state variables for email and password
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
