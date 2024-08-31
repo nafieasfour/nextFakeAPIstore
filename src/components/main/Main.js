@@ -1,12 +1,11 @@
-"use client"
-import React from 'react'
-import styles from "./Main.module.css"
-import Image from 'next/image'
-import { useEffect, useState } from 'react';
+"use client";
+import React, { useEffect, useState } from 'react';
+import styles from "./Main.module.css";
+import Image from 'next/image';
 import Search from '../search/Search';
 
 // Fetching the API
-export const ProductList = ({ searchQuery }) => {
+export const ProductList = ({ searchQuery, addToCart }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -45,8 +44,11 @@ export const ProductList = ({ searchQuery }) => {
             <li key={product.id} className={styles.productCart}>
               <strong>{product.showFullTitle ? product.title : product.title.split(' ').slice(0, 3).join(' ')}</strong>
               {!product.showFullTitle && <button onClick={() => toggleTitle(product.id)}>See More</button>}
-              <Image src={product.image} className={styles.productImage} width={500} height={500} alt=''/>
+              <Image src={product.image} className={styles.productImage} width={500} height={500} alt='' />
               ${product.price}
+              <button onClick={() => addToCart(product)}>
+                Add to Cart
+              </button>
             </li>
           ))}
         </ul>
@@ -55,19 +57,50 @@ export const ProductList = ({ searchQuery }) => {
   );
 };
 
-// Main  Function
+// Main Function
 export default function Main() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [cart, setCart] = useState([]);
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
-  }
+  };
+
+  const addToCart = (product) => {
+    const updatedCart = [...cart, product];
+    setCart(updatedCart);
+    alert('Added to cart');
+
+    // Save the cart data to cart.json via API
+    fetch('/api/cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cart: updatedCart }),
+    })
+      .then(async response => {
+        if (!response.ok) {
+          // If response is not okay, handle the error
+          const err = await response.json();
+          throw new Error(err.error || 'Failed to save cart');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Cart saved to cart.json:', data);
+      })
+      .catch(error => {
+        console.error('Error saving cart to cart.json:', error);
+      });
+  };
+
   return (
     <div className={styles.mainWrapper}>
       <div className={styles.products}>
-        <ProductList searchQuery={searchQuery} />
+        <ProductList searchQuery={searchQuery} addToCart={addToCart} />
       </div>
       <Search onChange={handleSearchInputChange} />
     </div>
-  )
+  );
 }

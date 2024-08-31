@@ -18,7 +18,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className={styles.loginWrapper}>
+    <div lassName={styles.loginWrapper}>
       <form className={styles.loginform} onSubmit={(e) => e.preventDefault()}>
         {/* Input field for email */}
         <input type="text" placeholder="Email" autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} />

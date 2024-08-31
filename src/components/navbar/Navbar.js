@@ -12,6 +12,7 @@ export default function Navbar() {
                 <li>Home</li>
                 <li>Products</li>
                 <li>My profile</li>
+                <li>Cart</li>
             </ul>
         </div>
     )
