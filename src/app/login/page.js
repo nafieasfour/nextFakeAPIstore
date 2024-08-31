@@ -11,7 +11,6 @@ export default function LoginPage() {
   const handleLogin = () => {
     if (email === 'admin@example.com' && password === '4#22cft_B$') {
       router.push('/');
-      console.log("Login is done");
       alert("Login successful");
     } else {
       alert('Invalid email or password');
