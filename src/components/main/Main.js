@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from "./Main.module.css";
 import Image from 'next/image';
 import Search from '../search/Search';
+import { useRouter } from "next/navigation";
 
 // Fetching the API
 export const ProductList = ({ searchQuery, addToCart }) => {
@@ -61,6 +62,7 @@ export const ProductList = ({ searchQuery, addToCart }) => {
 export default function Main() {
   const [searchQuery, setSearchQuery] = useState('');
   const [cart, setCart] = useState([]);
+  const router = useRouter();  // Move useRouter to the top level of the component
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -70,6 +72,7 @@ export default function Main() {
     const updatedCart = [...cart, product];
     setCart(updatedCart);
     alert('Added to cart');
+    router.push('/checkout');  // Use router after updating cart
 
     // Save the cart data to cart.json via API
     fetch('/api/cart', {
@@ -81,7 +84,6 @@ export default function Main() {
     })
       .then(async response => {
         if (!response.ok) {
-          // If response is not okay, handle the error
           const err = await response.json();
           throw new Error(err.error || 'Failed to save cart');
         }
